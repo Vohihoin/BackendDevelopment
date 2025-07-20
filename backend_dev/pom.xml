@@ -42,7 +42,7 @@
                 </executions>
                 <configuration>
                     <classpathScope>test</classpathScope>
-                    <mainClass>com.backend_dev.Main</mainClass>
+                    <mainClass>com.backend_dev.MainServer</mainClass>
                 </configuration>
             </plugin>
         </plugins>
