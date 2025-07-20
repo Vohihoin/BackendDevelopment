@@ -12,7 +12,7 @@ import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.io.IOException;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpContext;
 import com.sun.net.httpserver.HttpExchange;
@@ -30,7 +30,7 @@ public class MainServer {
         log.info("First log");
         configureSecurityManger();
         log.info("Second log");
-
+        try{
         HttpServer server = HttpServer.create(new InetSocketAddress(80), 0);
         HttpContext mainContext = server.createContext("/hospital/");
         server.setExecutor(Executors.newCachedThreadPool());
@@ -39,6 +39,9 @@ public class MainServer {
         log.info("Starting Server");
         server.start();
 
+        }catch(IOException e){
+           log.info(e.getMessage()); 
+        }
     }
 
     /**
@@ -66,6 +69,9 @@ public class MainServer {
 
         // GET PARAMETERS
         String queryString = exchange.getRequestURI().getQuery();
+        if (queryString == null){
+            queryString = "";
+        }
         String[] keyValuePairs = queryString.split("&");
 
         HashMap<String,String> parameterMap = new HashMap<>();
